@@ -7,24 +7,34 @@ public class Customer {
 	private String first_name;
 	private String last_name;
 	private String email;
-	private int address_id;
+	
+	private String address;
+	private String city;
+	private String country;
+	
 	private boolean active;
 	
 	public Customer() {
 		super();
 	}
 	
-	public Customer(int customer_id, int store_id, String first_name, String last_name, String email, int address_id,
-			boolean active) {
+	
+
+	public Customer(int customer_id, int store_id, String first_name, String last_name, String email, String address,
+			String city, String country, boolean active) {
 		super();
 		this.customer_id = customer_id;
 		this.store_id = store_id;
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.email = email;
-		this.address_id = address_id;
+		this.address = address;
+		this.city = city;
+		this.country = country;
 		this.active = active;
 	}
+
+
 
 	public int getCustomer_id() {
 		return customer_id;
@@ -66,12 +76,28 @@ public class Customer {
 		this.email = email;
 	}
 
-	public int getAddress_id() {
-		return address_id;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAddress_id(int address_id) {
-		this.address_id = address_id;
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 	public boolean isActive() {
@@ -82,13 +108,16 @@ public class Customer {
 		this.active = active;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Customer [customer_id=" + customer_id + ", store_id=" + store_id + ", first_name=" + first_name
-				+ ", last_name=" + last_name + ", email=" + email + ", address_id=" + address_id + ", active=" + active
-				+ "]";
+				+ ", last_name=" + last_name + ", email=" + email + ", address=" + address + ", city=" + city
+				+ ", country=" + country + ", active=" + active + "]";
 	}
-	
+
+
 	
 	
 }

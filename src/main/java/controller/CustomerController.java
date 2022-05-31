@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Address;
 import model.AddressDAO;
 import model.Customer;
 import model.CustomerDAO;
@@ -19,41 +21,72 @@ import model.CustomerDAO;
 @WebServlet("/customers")
 public class CustomerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-	
-	private CustomerDAO cDAO = new CustomerDAO();
-	private AddressDAO aDAO = new AddressDAO();
-	
-    public CustomerController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		List<Customer> customers= cDAO.read();
-		request.setAttribute("customer", customers);
-		
-		
-		
-		request.setAttribute("address", customers);
-		
-		getServletContext().getRequestDispatcher("/views/customers.jsp").forward(request, response);
+
+	private CustomerDAO cDAO = new CustomerDAO();
+
+	public CustomerController() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String op = request.getParameter("op");
+
+		if (op == null) {
+			op = "listar";
+		}
+
+		switch (op) {
+		case "listar":
+			List<Customer> customers = cDAO.read();
+			request.setAttribute("customers", customers);
+
+			getServletContext().getRequestDispatcher("/views/customers.jsp").forward(request, response);
+			break;
+		case "edit":
+			
+			String id = request.getParameter("id");
+			if (id == null) {
+			
+				throw new IllegalArgumentException("Unexpected value: " + op);				
+			}
+			
+			Customer c = cDAO.read(Integer.parseInt(id));
+			
+			
+			request.setAttribute("customer", c);
+			
+			getServletContext().getRequestDispatcher("/views/customer.jsp").forward(request, response);
+			
+			
+			break;
+
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + op);
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+	
+		
+		
+		
 	}
 
 }

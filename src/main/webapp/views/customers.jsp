@@ -37,16 +37,23 @@
 					<th>Nombre</th>
 					<th>Apellido</th>
 					<th>Email</th>
+					<th>Dirección</th>
+					<th>Ciudad</th>
+					<th>País</th>
 					<th>Activo</th>
+					<th>Accion</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="c" items="${customer}">
+				<c:forEach var="c" items="${customers}">
 					<tr>
 						<td><c:out value="${c.getCustomer_id()}"></c:out></td>
 						<td><c:out value="${c.getFirst_name()}"></c:out></td>
 						<td><c:out value="${c.getLast_name()}"></c:out></td>
 						<td><c:out value="${c.getEmail()}"></c:out></td>
+						<td><c:out value="${c.getAddress()}"></c:out></td>
+						<td><c:out value="${c.getCity()}"></c:out></td>
+						<td><c:out value="${c.getCountry()}"></c:out></td>
 						<td>
 						
 						<c:if test="${c.isActive()}">
@@ -56,6 +63,7 @@
 							<input class="form-check-input" type="checkbox" id="active" disabled>
 						</c:if>
 						</td>
+						<td><a href="${pageContext.request.contextPath}/customers?op=edit&id=${c.getCustomer_id()}" class="btn btn-secondary" id="btnEdit${c.getCustomer_id()}"><i class="fas fa-edit"></i></a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
